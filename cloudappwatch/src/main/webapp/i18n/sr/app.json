@@ -1,0 +1,24 @@
+{
+    "cloudappwatchApp": {
+        "app": {
+            "home": {
+                "title": "Apps",
+                "createLabel": "Kreiraj novi App",
+                "createOrEditLabel": "Kreirajte ili izmenite App"
+            },
+            "created": "Kreiran je novi App pod nazivom {{ param }}",
+            "updated": "App pod nazivom {{ param }} je ažuriran",
+            "deleted": "App pod nazivom {{ param }} je obrisan",
+            "delete": {
+                "question": "Da li ste sigurni da želite da obrišete App pod nazivom {{ id }}?"
+            },
+            "detail": {
+                "title": "App"
+            },
+            "commandLine": "Command Line",
+            "serviceFlag": "Service Flag",
+            "status": "Status",
+            "server": "Server"
+        }
+    }
+}

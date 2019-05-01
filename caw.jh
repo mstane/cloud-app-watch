@@ -1,0 +1,142 @@
+//
+// Cloud App Watch - Front and Back end
+// a new microservice called "Processor"?
+//
+// UI, view, data update
+// - messaging
+//    - receives: delta, full statuses, health ping from agents 
+//    - sends: 
+//       - sync request with list of servers (to sync service) on start, data update
+//       - deltas (to delta service) - after getting a full status message
+//       - full reload (to delta service) - after data sync
+//
+application {
+  config {
+    baseName cloudappwatch,
+    applicationType gateway,
+    packageName io.github.ms.cloudappwatch,
+    serviceDiscoveryType eureka,
+    authenticationType jwt,
+    databaseType sql,
+    devDatabaseType h2Disk,
+	prodDatabaseType postgresql,
+    cacheProvider hazelcast,
+    buildTool maven,
+    clientFramework angularX,
+    useSass true,
+	languages [en, sr],    
+    testFrameworks [protractor],
+    messageBroker kafka,
+	serverPort 8080,
+    skipUserManagement false
+  }
+  entities Server, App
+}
+
+//
+// Delta service - delta update notification
+//
+//  - receives delta message from agents (as backend)
+//  - sends
+//    - web socket 
+//     - for a status update on dashboard
+//     - full reload, after batch data synchronization to trigger page reload
+//    - email or sms
+//     - for every status delta
+//
+application {
+  config {
+    baseName delta,
+    applicationType microservice,
+    packageName io.github.ms.cloudappwatch,
+    serviceDiscoveryType eureka,
+    authenticationType jwt,
+    databaseType no,
+    devDatabaseType no,
+	prodDatabaseType no,
+    buildTool maven,
+    messageBroker kafka,
+    serverPort 8081,
+    skipUserManagement true
+  }
+}
+
+//
+// Sync Service
+//
+// Batch process, triggered by processor, ont time run, serverless
+// sends requests agents (from received list) for full report
+//
+application {
+  config {
+    baseName sync,
+    applicationType microservice,
+    packageName io.github.ms.cloudappwatch,
+    serviceDiscoveryType eureka,
+    authenticationType jwt,
+    databaseType no,
+    devDatabaseType no,
+	prodDatabaseType no,    
+    buildTool maven,
+    messageBroker kafka,
+    serverPort 8082,
+    skipUserManagement true
+  }
+}
+
+//
+// Agent service - installed on all server sends messages:
+//  - healt check ping - after period of time without any message
+//  - delta status update - on every app status change
+//  - full status report - after received request from Sync Service (API or message)
+//
+application {
+  config {
+    baseName agent,
+    applicationType microservice,
+    packageName io.github.ms.cloudappwatch,
+    serviceDiscoveryType eureka,
+    authenticationType jwt,
+    databaseType no,
+    devDatabaseType no,
+	prodDatabaseType no,    
+    buildTool maven,
+    messageBroker kafka,
+    serverPort 8083,
+    skipUserManagement true
+  }
+}
+
+
+
+
+entity Server {
+	hostName String,
+	status ServiceStatus,
+	lastCheck ZonedDateTime
+}
+
+enum ServiceStatus {
+	COMPLETE, PARTIAL, STALE, FAILURE, DOWN, ERROR
+}
+
+entity App {
+	commandLine TextBlob,
+    serviceFlag Boolean,
+	status AppStatus
+}
+
+enum AppStatus {
+	UP, DOWN, FAILURE
+}
+
+relationship ManyToOne {
+	App{server(name)} to Server,
+    Server{admin(login)} to User
+}
+
+service Server, App with serviceClass
+
+filter Server, App
+
+paginate Server, App with infinite-scroll
