@@ -6,7 +6,9 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
+ * $cd target
  * $ps -ef | grep dummy-app
+ *
  * $java -cp appmock-1.0-SNAPSHOT.jar io.github.sm.cloudappwatch.App
  */
 public class App {
@@ -15,8 +17,8 @@ public class App {
     private static String COMMAND_JAVA = "java";
     private static String COMMAND_CLASS_NAME = "io.github.sm.cloudappwatch.DummyApp";
 
-//    private static String COMMAND_CLASS_PATH = "appmock-1.0-SNAPSHOT.jar";
-    private static String COMMAND_CLASS_PATH = "./target/classes";
+    private static String COMMAND_CLASS_PATH = "appmock-1.0-SNAPSHOT.jar";
+//    private static String COMMAND_CLASS_PATH = "./target/classes";
 
     private static int PROCESS_CHANGE_TIME = 10000;
 
