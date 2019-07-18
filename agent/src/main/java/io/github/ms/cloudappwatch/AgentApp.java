@@ -5,15 +5,18 @@ import io.github.ms.cloudappwatch.config.DefaultProfileUtil;
 
 import io.github.jhipster.config.JHipsterConstants;
 
+import io.github.ms.cloudappwatch.demo.AppMock;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import javax.annotation.PostConstruct;
 import java.net.InetAddress;
@@ -30,6 +33,12 @@ public class AgentApp {
     private static final Logger log = LoggerFactory.getLogger(AgentApp.class);
 
     private final Environment env;
+
+    @Autowired
+    private ApplicationProperties applicationProperties;
+
+    @Autowired
+    private AppMock appMock;
 
     public AgentApp(Environment env) {
         this.env = env;
@@ -52,6 +61,9 @@ public class AgentApp {
         if (activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT) && activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_CLOUD)) {
             log.error("You have misconfigured your application! It should not " +
                 "run with both the 'dev' and 'cloud' profiles at the same time.");
+        }
+        if (applicationProperties.isDemo()) {
+            appMock.run();
         }
     }
 

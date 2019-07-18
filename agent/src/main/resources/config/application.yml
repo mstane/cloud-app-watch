@@ -170,4 +170,7 @@ jhipster:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
 
-# application:
+application:
+    demo: true
+    agent:
+        update-statuses-fixed-rate: 60000

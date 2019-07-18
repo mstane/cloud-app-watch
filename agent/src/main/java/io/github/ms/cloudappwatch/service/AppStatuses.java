@@ -59,7 +59,7 @@ public class AppStatuses {
         });
     }
 
-    @Scheduled(fixedRateString = "${caw.agent.scheduled-update-statuses.fixed-rate}")
+    @Scheduled(fixedRateString = "${application.agent.update-statuses-fixed-rate}")
     public void updateStatuses() {
         Set<String> allProcesses = ProcessUtil.getAllProcesses();
         updateStatuses(allProcesses);
