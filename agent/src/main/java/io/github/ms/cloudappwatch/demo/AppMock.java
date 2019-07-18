@@ -4,27 +4,15 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-/**
- * $cd target
- * $ps -ef | grep dummy-app
- *
- * $java -cp agent-0.0.1-SNAPSHOT.war io.github.ms.cloudappwatch.demo.AppMock
- */
 @Component
 public class AppMock {
-
-    private static String PATH_NAME = ".";
-    private static String COMMAND_JAVA = "java";
-    private static String COMMAND_CLASS_NAME = "io.github.ms.cloudappwatch.demo.DummyApp";
-
-    private static String COMMAND_CLASS_PATH = "agent-0.0.1-SNAPSHOT.war";
-//    private static String COMMAND_CLASS_PATH = "./target/classes";
 
     private static int PROCESS_CHANGE_TIME = 10000;
 
@@ -39,8 +27,6 @@ public class AppMock {
     @Async
     public void run()  {
         try {
-            printOutDefaultEnv();
-
             numberOfProcesses = getNumberOfProcesses();
             System.out.println("Hello! " + numberOfProcesses);
 
@@ -99,25 +85,6 @@ public class AppMock {
         processes.forEach((k, v) -> stopProcess(k));
     }
 
-    private Process createJavaProcess(int index) throws Exception {
-        ProcessBuilder processBuilder = new ProcessBuilder();
-        String processName = PROCESS_NAME_PREFIX + index;
-        processBuilder.command(COMMAND_JAVA, COMMAND_CLASS_NAME, processName);
-        processBuilder.directory(new File(PATH_NAME));
-        Map<String, String> env = processBuilder.environment();
-        env.put("CLASSPATH", COMMAND_CLASS_PATH);
-        Process process = processBuilder.start();
-        processes.put(index, process);
-        System.out.println(String.format(
-            "Process [%d] has been started with [%s] [%s] [%s] [%s]",
-            index,
-            COMMAND_JAVA,
-            COMMAND_CLASS_NAME,
-            COMMAND_CLASS_PATH,
-            processName
-        ));
-        return process;
-    }
 
     private Process createProcess(int index) throws Exception {
         ProcessBuilder processBuilder = new ProcessBuilder();
@@ -159,18 +126,5 @@ public class AppMock {
         }
     }
 
-    private void printOutDefaultEnv() {
-        try {
-            ProcessBuilder processBuilder = new ProcessBuilder();
-            processBuilder.command("pwd");
-            Process process = processBuilder.start();
-            printOut(process);
-            processBuilder.command("env");
-            process = processBuilder.start();
-            printOut(process);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 }
