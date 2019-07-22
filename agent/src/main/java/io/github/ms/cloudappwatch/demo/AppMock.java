@@ -1,15 +1,23 @@
 package io.github.ms.cloudappwatch.demo;
 
+import io.github.ms.cloudappwatch.domain.enumeration.AppStatus;
+import io.github.ms.cloudappwatch.messaging.channel.AppFullListChannel;
+import io.github.ms.cloudappwatch.messaging.model.AppFullList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.integration.support.MessageBuilder;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.time.ZonedDateTime;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Component
 public class AppMock {
@@ -23,6 +31,20 @@ public class AppMock {
 
     private int numberOfProcesses = 0;
     private Map<Integer, Process> processes = new HashMap<>();
+    private List<String> processCommandList = new ArrayList<>();
+
+    @Autowired
+    private AppFullListChannel appFullListChannel;
+
+    private final String hostname;
+
+    public AppMock() {
+        try {
+            this.hostname = InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException e) {
+            throw new IllegalStateException(e);
+        }
+    }
 
     @Async
     public void run()  {
@@ -79,6 +101,7 @@ public class AppMock {
             createProcess(i);
             Thread.sleep(PROCESS_CHANGE_TIME);
         }
+        sendProcessList();
     }
 
     private void stopAllProcesses() throws Exception {
@@ -93,6 +116,7 @@ public class AppMock {
         processBuilder.command(command);
         Process process = processBuilder.start();
         processes.put(index, process);
+        processCommandList.add(processName + " 1000000");
         System.out.println(String.format(
             "Process [%d] has been started with [%s]",
             index,
@@ -124,6 +148,15 @@ public class AppMock {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void sendProcessList() {
+        Map<String, AppStatus> processList = processCommandList.stream().collect(Collectors.toMap(Function.identity(), s -> AppStatus.UP));
+
+        appFullListChannel.appFullListChannel().send(
+            MessageBuilder.withPayload(new AppFullList(hostname, ZonedDateTime.now(), processList)).build()
+        );
+
     }
 
 
