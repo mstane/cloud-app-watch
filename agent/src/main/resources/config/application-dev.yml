@@ -53,11 +53,11 @@ spring:
                 heartBeatChannel:
                     destination: heart-beat-topic
                     content-type: application/json
-                processEventChannel:
-                    destination: process-event-topic
+                appEventChannel:
+                    destination: app-event-topic
                     content-type: application/json
-                processFullListChannel:
-                    destination: process-full-list-topic
+                appFullListChannel:
+                    destination: app-full-list-topic
                     content-type: application/json
     mail:
         host: localhost

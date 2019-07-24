@@ -174,3 +174,4 @@ application:
     demo: true
     agent:
         update-statuses-fixed-rate: 60000
+        heartbeat-fixed-rate: 300000

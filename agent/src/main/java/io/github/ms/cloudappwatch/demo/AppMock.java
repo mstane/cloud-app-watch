@@ -3,6 +3,7 @@ package io.github.ms.cloudappwatch.demo;
 import io.github.ms.cloudappwatch.domain.enumeration.AppStatus;
 import io.github.ms.cloudappwatch.messaging.channel.AppFullListChannel;
 import io.github.ms.cloudappwatch.messaging.model.AppFullList;
+import io.github.ms.cloudappwatch.service.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.scheduling.annotation.Async;
@@ -35,16 +36,6 @@ public class AppMock {
 
     @Autowired
     private AppFullListChannel appFullListChannel;
-
-    private final String hostname;
-
-    public AppMock() {
-        try {
-            this.hostname = InetAddress.getLocalHost().getHostName();
-        } catch (UnknownHostException e) {
-            throw new IllegalStateException(e);
-        }
-    }
 
     @Async
     public void run()  {
@@ -154,7 +145,7 @@ public class AppMock {
         Map<String, AppStatus> processList = processCommandList.stream().collect(Collectors.toMap(Function.identity(), s -> AppStatus.UP));
 
         appFullListChannel.appFullListChannel().send(
-            MessageBuilder.withPayload(new AppFullList(hostname, ZonedDateTime.now(), processList)).build()
+            MessageBuilder.withPayload(new AppFullList(Util.hostname, ZonedDateTime.now(), processList)).build()
         );
 
     }

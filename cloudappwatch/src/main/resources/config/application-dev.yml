@@ -51,6 +51,12 @@ spring:
             bindings:
                 output:
                     destination: topic-jhipster
+                heartBeatChannel:
+                    destination: heart-beat-topic
+                processEventChannel:
+                    destination: process-event-topic
+                processFullListChannel:
+                    destination: process-full-list-topic
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:h2:file:./target/h2db/db/cloudappwatch;DB_CLOSE_DELAY=-1

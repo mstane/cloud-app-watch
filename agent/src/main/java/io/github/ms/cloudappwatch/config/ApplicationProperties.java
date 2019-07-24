@@ -30,12 +30,23 @@ public class ApplicationProperties {
     public static class Agent {
         private Long updateStatusesFixedRate = 60000L;
 
+        private Long heartbeatFixedRate = 30000L;
+
         public Long getUpdateStatusesFixedRate() {
             return updateStatusesFixedRate;
         }
 
         public void setUpdateStatusesFixedRate(Long updateStatusesFixedRate) {
             this.updateStatusesFixedRate = updateStatusesFixedRate;
+        }
+
+
+        public Long getHeartbeatFixedRate() {
+            return heartbeatFixedRate;
+        }
+
+        public void setHeartbeatFixedRate(Long heartbeatFixedRate) {
+            this.heartbeatFixedRate = heartbeatFixedRate;
         }
     }
 
