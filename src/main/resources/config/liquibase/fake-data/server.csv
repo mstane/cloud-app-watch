@@ -1,11 +1,11 @@
 id;host_name;status;last_check
-1;mobile Fish;FAILURE;2019-10-05T13:43:11
-2;FTP Savings Account;STALE;2019-10-05T15:05:42
-3;Officer;ERROR;2019-10-05T04:44:50
-4;intangible;FAILURE;2019-10-05T09:31:38
-5;Licensed Savings Account;COMPLETE;2019-10-05T13:59:56
-6;Credit Card Account Table Small Frozen Sausages;COMPLETE;2019-10-05T09:34:20
-7;Monitored Bahamian Dollar Investment Account;STALE;2019-10-04T23:12:48
-8;hardware Costa Rica Mayotte;FAILURE;2019-10-04T18:53:57
-9;Views e-enable Communications;FAILURE;2019-10-05T14:01:42
-10;software scale interactive;PARTIAL;2019-10-05T08:29:23
+1;mobile Fish;ERROR;2019-10-05T18:12:44
+2;FTP Savings Account;COMPLETE;2019-10-05T19:35:15
+3;Officer;DOWN;2019-10-05T09:14:23
+4;intangible;DOWN;2019-10-05T14:01:11
+5;Licensed Savings Account;ERROR;2019-10-05T18:29:29
+6;Credit Card Account Table Small Frozen Sausages;COMPLETE;2019-10-05T14:03:54
+7;Monitored Bahamian Dollar Investment Account;DOWN;2019-10-05T03:42:21
+8;hardware Costa Rica Mayotte;PARTIAL;2019-10-04T23:23:30
+9;Views e-enable Communications;COMPLETE;2019-10-05T18:31:15
+10;software scale interactive;DOWN;2019-10-05T12:58:56

@@ -25,7 +25,7 @@
             "otherEntityField": "name"
         }
     ],
-    "changelogDate": "20191005150632",
+    "changelogDate": "20191005193610",
     "entityTableName": "app",
     "dto": "no",
     "pagination": "infinite-scroll",

@@ -1,7 +1,5 @@
 package io.github.ms.cloudappwatch.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -15,7 +13,6 @@ import io.github.ms.cloudappwatch.domain.enumeration.AppStatus;
  */
 @Entity
 @Table(name = "app")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class App implements Serializable {
 
     private static final long serialVersionUID = 1L;

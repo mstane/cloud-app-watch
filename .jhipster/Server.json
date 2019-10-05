@@ -24,7 +24,7 @@
             "otherEntityField": "login"
         }
     ],
-    "changelogDate": "20191005150631",
+    "changelogDate": "20191005193609",
     "entityTableName": "server",
     "dto": "no",
     "pagination": "infinite-scroll",

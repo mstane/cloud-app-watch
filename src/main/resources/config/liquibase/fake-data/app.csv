@@ -1,11 +1,11 @@
 id;command_line;service_flag;status
-1;../fake-data/blob/hipster.txt;false;DOWN
-2;../fake-data/blob/hipster.txt;false;FAILURE
+1;../fake-data/blob/hipster.txt;false;FAILURE
+2;../fake-data/blob/hipster.txt;false;UP
 3;../fake-data/blob/hipster.txt;true;FAILURE
-4;../fake-data/blob/hipster.txt;true;UP
+4;../fake-data/blob/hipster.txt;true;FAILURE
 5;../fake-data/blob/hipster.txt;true;UP
-6;../fake-data/blob/hipster.txt;true;DOWN
-7;../fake-data/blob/hipster.txt;false;DOWN
+6;../fake-data/blob/hipster.txt;true;FAILURE
+7;../fake-data/blob/hipster.txt;false;FAILURE
 8;../fake-data/blob/hipster.txt;true;UP
-9;../fake-data/blob/hipster.txt;true;FAILURE
+9;../fake-data/blob/hipster.txt;true;DOWN
 10;../fake-data/blob/hipster.txt;false;FAILURE

@@ -7,7 +7,7 @@ application {
     databaseType sql,
     devDatabaseType h2Disk,
 	prodDatabaseType postgresql,
-    cacheProvider hazelcast,
+    cacheProvider no,
     buildTool maven,
     clientFramework angularX
   }

@@ -46,13 +46,9 @@ spring:
     properties:
       hibernate.id.new_generator_mappings: true
       hibernate.connection.provider_disables_autocommit: true
-      hibernate.cache.use_second_level_cache: true
+      hibernate.cache.use_second_level_cache: false
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: false
-      hibernate.cache.region.factory_class: com.hazelcast.hibernate.HazelcastCacheRegionFactory
-      hibernate.cache.hazelcast.instance_name: cloudappwatch
-      hibernate.cache.use_minimal_puts: true
-      hibernate.cache.hazelcast.use_lite_member: true
   # Replace by 'prod, faker' to add the faker context and have sample data loaded in production
   liquibase:
     contexts: prod
@@ -100,14 +96,6 @@ jhipster:
   http:
     cache: # Used by the CachingHttpHeadersFilter
       timeToLiveInDays: 1461
-  cache: # Cache configuration
-    hazelcast: # Hazelcast distributed cache
-      time-to-live-seconds: 3600
-      backup-count: 1
-      management-center: # Full reference is available at: http://docs.hazelcast.org/docs/management-center/3.9/manual/html/Deploying_and_Starting.html
-        enabled: false
-        update-interval: 3
-        url:
   security:
     authentication:
       jwt:
@@ -116,7 +104,7 @@ jhipster:
         # - In the JHipster Registry (which includes a Spring Cloud Config server)
         # - In a separate `application-prod.yml` file, in the same folder as your executable JAR file
         # - In the `JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET` environment variable
-        base64-secret: NmNlNzBkM2NkM2JjMzUyNWFiNTAwYzIwYjIwMzVhYzYyZDRjNWZlZDNlNjg2YzUwMmY0YmUwY2JmZGUzZDg3NDU4MGU5MzRjY2Q3ZTk2ODQ0MjBhZGNjM2JhMzY1NmQ3NmM1ZjI3NGU5YTBhNTBjNmExZTU3Yzg3NzFiY2E4NTY=
+        base64-secret: MzUwNmEyOGQ4NDdhYWZmODBiODg2YjM1YTUyZDE4ODdkNmYyNzQ5ZjVjYTQxYTllZjg1YTljZjRkZmE2MzA3ODhmNzFiZWVjMzBjYTkzMTkwYzNiZjEzZGFlYjdiM2Y2ZDZiY2Q5M2NlZmFlNmNjOGMzMjI4N2Y5MDYwOGE2NTE=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
