@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 /**
- * Service Implementation for managing App.
+ * Service Implementation for managing {@link App}.
  */
 @Service
 @Transactional
@@ -30,8 +30,8 @@ public class AppService {
     /**
      * Save a app.
      *
-     * @param app the entity to save
-     * @return the persisted entity
+     * @param app the entity to save.
+     * @return the persisted entity.
      */
     public App save(App app) {
         log.debug("Request to save App : {}", app);
@@ -41,8 +41,8 @@ public class AppService {
     /**
      * Get all the apps.
      *
-     * @param pageable the pagination information
-     * @return the list of entities
+     * @param pageable the pagination information.
+     * @return the list of entities.
      */
     @Transactional(readOnly = true)
     public Page<App> findAll(Pageable pageable) {
@@ -54,8 +54,8 @@ public class AppService {
     /**
      * Get one app by id.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     @Transactional(readOnly = true)
     public Optional<App> findOne(Long id) {
@@ -66,7 +66,7 @@ public class AppService {
     /**
      * Delete the app by id.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     public void delete(Long id) {
         log.debug("Request to delete App : {}", id);

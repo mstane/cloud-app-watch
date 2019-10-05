@@ -1,89 +1,142 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
-import { IApp } from 'app/shared/model/app.model';
+import { IApp, App } from 'app/shared/model/app.model';
 import { AppService } from './app.service';
 import { IServer } from 'app/shared/model/server.model';
-import { ServerService } from 'app/entities/server';
+import { ServerService } from 'app/entities/server/server.service';
 
 @Component({
-    selector: 'jhi-app-update',
-    templateUrl: './app-update.component.html'
+  selector: 'jhi-app-update',
+  templateUrl: './app-update.component.html'
 })
 export class AppUpdateComponent implements OnInit {
-    app: IApp;
-    isSaving: boolean;
+  isSaving: boolean;
 
-    servers: IServer[];
+  servers: IServer[];
 
-    constructor(
-        protected dataUtils: JhiDataUtils,
-        protected jhiAlertService: JhiAlertService,
-        protected appService: AppService,
-        protected serverService: ServerService,
-        protected activatedRoute: ActivatedRoute
-    ) {}
+  editForm = this.fb.group({
+    id: [],
+    commandLine: [],
+    serviceFlag: [],
+    status: [],
+    server: []
+  });
 
-    ngOnInit() {
-        this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ app }) => {
-            this.app = app;
-        });
-        this.serverService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IServer[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IServer[]>) => response.body)
-            )
-            .subscribe((res: IServer[]) => (this.servers = res), (res: HttpErrorResponse) => this.onError(res.message));
-    }
+  constructor(
+    protected dataUtils: JhiDataUtils,
+    protected jhiAlertService: JhiAlertService,
+    protected appService: AppService,
+    protected serverService: ServerService,
+    protected activatedRoute: ActivatedRoute,
+    private fb: FormBuilder
+  ) {}
 
-    byteSize(field) {
-        return this.dataUtils.byteSize(field);
-    }
+  ngOnInit() {
+    this.isSaving = false;
+    this.activatedRoute.data.subscribe(({ app }) => {
+      this.updateForm(app);
+    });
+    this.serverService
+      .query()
+      .pipe(
+        filter((mayBeOk: HttpResponse<IServer[]>) => mayBeOk.ok),
+        map((response: HttpResponse<IServer[]>) => response.body)
+      )
+      .subscribe((res: IServer[]) => (this.servers = res), (res: HttpErrorResponse) => this.onError(res.message));
+  }
 
-    openFile(contentType, field) {
-        return this.dataUtils.openFile(contentType, field);
-    }
+  updateForm(app: IApp) {
+    this.editForm.patchValue({
+      id: app.id,
+      commandLine: app.commandLine,
+      serviceFlag: app.serviceFlag,
+      status: app.status,
+      server: app.server
+    });
+  }
 
-    setFileData(event, entity, field, isImage) {
-        this.dataUtils.setFileData(event, entity, field, isImage);
-    }
+  byteSize(field) {
+    return this.dataUtils.byteSize(field);
+  }
 
-    previousState() {
-        window.history.back();
-    }
+  openFile(contentType, field) {
+    return this.dataUtils.openFile(contentType, field);
+  }
 
-    save() {
-        this.isSaving = true;
-        if (this.app.id !== undefined) {
-            this.subscribeToSaveResponse(this.appService.update(this.app));
+  setFileData(event, field: string, isImage) {
+    return new Promise((resolve, reject) => {
+      if (event && event.target && event.target.files && event.target.files[0]) {
+        const file: File = event.target.files[0];
+        if (isImage && !file.type.startsWith('image/')) {
+          reject(`File was expected to be an image but was found to be ${file.type}`);
         } else {
-            this.subscribeToSaveResponse(this.appService.create(this.app));
+          const filedContentType: string = field + 'ContentType';
+          this.dataUtils.toBase64(file, base64Data => {
+            this.editForm.patchValue({
+              [field]: base64Data,
+              [filedContentType]: file.type
+            });
+          });
         }
-    }
+      } else {
+        reject(`Base64 data was not set as file could not be extracted from passed parameter: ${event}`);
+      }
+    }).then(
+      // eslint-disable-next-line no-console
+      () => console.log('blob added'), // success
+      this.onError
+    );
+  }
 
-    protected subscribeToSaveResponse(result: Observable<HttpResponse<IApp>>) {
-        result.subscribe((res: HttpResponse<IApp>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
-    }
+  previousState() {
+    window.history.back();
+  }
 
-    protected onSaveSuccess() {
-        this.isSaving = false;
-        this.previousState();
+  save() {
+    this.isSaving = true;
+    const app = this.createFromForm();
+    if (app.id !== undefined) {
+      this.subscribeToSaveResponse(this.appService.update(app));
+    } else {
+      this.subscribeToSaveResponse(this.appService.create(app));
     }
+  }
 
-    protected onSaveError() {
-        this.isSaving = false;
-    }
+  private createFromForm(): IApp {
+    return {
+      ...new App(),
+      id: this.editForm.get(['id']).value,
+      commandLine: this.editForm.get(['commandLine']).value,
+      serviceFlag: this.editForm.get(['serviceFlag']).value,
+      status: this.editForm.get(['status']).value,
+      server: this.editForm.get(['server']).value
+    };
+  }
 
-    protected onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
-    }
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IApp>>) {
+    result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
+  }
 
-    trackServerById(index: number, item: IServer) {
-        return item.id;
-    }
+  protected onSaveSuccess() {
+    this.isSaving = false;
+    this.previousState();
+  }
+
+  protected onSaveError() {
+    this.isSaving = false;
+  }
+  protected onError(errorMessage: string) {
+    this.jhiAlertService.error(errorMessage, null, null);
+  }
+
+  trackServerById(index: number, item: IServer) {
+    return item.id;
+  }
 }

@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 /**
- * Service Implementation for managing Server.
+ * Service Implementation for managing {@link Server}.
  */
 @Service
 @Transactional
@@ -30,8 +30,8 @@ public class ServerService {
     /**
      * Save a server.
      *
-     * @param server the entity to save
-     * @return the persisted entity
+     * @param server the entity to save.
+     * @return the persisted entity.
      */
     public Server save(Server server) {
         log.debug("Request to save Server : {}", server);
@@ -41,8 +41,8 @@ public class ServerService {
     /**
      * Get all the servers.
      *
-     * @param pageable the pagination information
-     * @return the list of entities
+     * @param pageable the pagination information.
+     * @return the list of entities.
      */
     @Transactional(readOnly = true)
     public Page<Server> findAll(Pageable pageable) {
@@ -54,8 +54,8 @@ public class ServerService {
     /**
      * Get one server by id.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     @Transactional(readOnly = true)
     public Optional<Server> findOne(Long id) {
@@ -66,7 +66,7 @@ public class ServerService {
     /**
      * Delete the server by id.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     public void delete(Long id) {
         log.debug("Request to delete Server : {}", id);

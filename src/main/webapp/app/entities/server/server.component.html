@@ -4,14 +4,17 @@
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-server" [routerLink]="['/server/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="cloudappwatchApp.server.home.createLabel">
-            Create new Server
+            Create a new Server
             </span>
         </button>
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
-    <div class="table-responsive" *ngIf="servers">
-        <table class="table table-striped">
+    <div class="alert alert-warning" *ngIf="servers?.length === 0">
+        <span jhiTranslate="cloudappwatchApp.server.home.notFound">No servers found</span>
+    </div>
+    <div class="table-responsive" *ngIf="servers?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -32,7 +35,7 @@
                     {{server.admin?.login}}
                 </td>
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
+                    <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/server', server.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -46,7 +49,7 @@
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', 'server', { outlets: { popup: server.id + '/delete'} }]"
+                                [routerLink]="['/server', { outlets: { popup: server.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">

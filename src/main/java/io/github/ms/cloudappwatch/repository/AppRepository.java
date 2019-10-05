@@ -1,5 +1,4 @@
 package io.github.ms.cloudappwatch.repository;
-
 import io.github.ms.cloudappwatch.domain.App;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;

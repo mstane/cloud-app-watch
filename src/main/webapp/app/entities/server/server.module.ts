@@ -1,34 +1,18 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
 
-import { CloudappwatchSharedModule } from 'app/shared';
-import {
-    ServerComponent,
-    ServerDetailComponent,
-    ServerUpdateComponent,
-    ServerDeletePopupComponent,
-    ServerDeleteDialogComponent,
-    serverRoute,
-    serverPopupRoute
-} from './';
+import { CloudappwatchSharedModule } from 'app/shared/shared.module';
+import { ServerComponent } from './server.component';
+import { ServerDetailComponent } from './server-detail.component';
+import { ServerUpdateComponent } from './server-update.component';
+import { ServerDeletePopupComponent, ServerDeleteDialogComponent } from './server-delete-dialog.component';
+import { serverRoute, serverPopupRoute } from './server.route';
 
 const ENTITY_STATES = [...serverRoute, ...serverPopupRoute];
 
 @NgModule({
-    imports: [CloudappwatchSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [ServerComponent, ServerDetailComponent, ServerUpdateComponent, ServerDeleteDialogComponent, ServerDeletePopupComponent],
-    entryComponents: [ServerComponent, ServerUpdateComponent, ServerDeleteDialogComponent, ServerDeletePopupComponent],
-    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [CloudappwatchSharedModule, RouterModule.forChild(ENTITY_STATES)],
+  declarations: [ServerComponent, ServerDetailComponent, ServerUpdateComponent, ServerDeleteDialogComponent, ServerDeletePopupComponent],
+  entryComponents: [ServerDeleteDialogComponent]
 })
-export class CloudappwatchServerModule {
-    constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-        this.languageHelper.language.subscribe((languageKey: string) => {
-            if (languageKey !== undefined) {
-                this.languageService.changeLanguage(languageKey);
-            }
-        });
-    }
-}
+export class CloudappwatchServerModule {}

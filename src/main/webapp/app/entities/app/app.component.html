@@ -4,14 +4,17 @@
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-app" [routerLink]="['/app/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="cloudappwatchApp.app.home.createLabel">
-            Create new App
+            Create a new App
             </span>
         </button>
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
-    <div class="table-responsive" *ngIf="apps">
-        <table class="table table-striped">
+    <div class="alert alert-warning" *ngIf="apps?.length === 0">
+        <span jhiTranslate="cloudappwatchApp.app.home.notFound">No apps found</span>
+    </div>
+    <div class="table-responsive" *ngIf="apps?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -30,11 +33,11 @@
                 <td jhiTranslate="{{'cloudappwatchApp.AppStatus.' + app.status}}">{{app.status}}</td>
                 <td>
                     <div *ngIf="app.server">
-                        <a [routerLink]="['../server', app.server?.id, 'view' ]" >{{app.server?.name}}</a>
+                        <a [routerLink]="['/server', app.server?.id, 'view' ]" >{{app.server?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
+                    <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/app', app.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -48,7 +51,7 @@
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', 'app', { outlets: { popup: app.id + '/delete'} }]"
+                                [routerLink]="['/app', { outlets: { popup: app.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">

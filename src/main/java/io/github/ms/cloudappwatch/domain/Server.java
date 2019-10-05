@@ -1,6 +1,4 @@
 package io.github.ms.cloudappwatch.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -9,7 +7,6 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.Objects;
 
 import io.github.ms.cloudappwatch.domain.enumeration.ServiceStatus;
 
@@ -22,7 +19,7 @@ import io.github.ms.cloudappwatch.domain.enumeration.ServiceStatus;
 public class Server implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
@@ -109,19 +106,15 @@ public class Server implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Server)) {
             return false;
         }
-        Server server = (Server) o;
-        if (server.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), server.getId());
+        return id != null && id.equals(((Server) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

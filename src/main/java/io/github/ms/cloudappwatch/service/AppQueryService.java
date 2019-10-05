@@ -20,7 +20,7 @@ import io.github.ms.cloudappwatch.repository.AppRepository;
 import io.github.ms.cloudappwatch.service.dto.AppCriteria;
 
 /**
- * Service for executing complex queries for App entities in the database.
+ * Service for executing complex queries for {@link App} entities in the database.
  * The main input is a {@link AppCriteria} which gets converted to {@link Specification},
  * in a way that all the filters must apply.
  * It returns a {@link List} of {@link App} or a {@link Page} of {@link App} which fulfills the criteria.
@@ -38,7 +38,7 @@ public class AppQueryService extends QueryService<App> {
     }
 
     /**
-     * Return a {@link List} of {@link App} which matches the criteria from the database
+     * Return a {@link List} of {@link App} which matches the criteria from the database.
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching entities.
      */
@@ -50,7 +50,7 @@ public class AppQueryService extends QueryService<App> {
     }
 
     /**
-     * Return a {@link Page} of {@link App} which matches the criteria from the database
+     * Return a {@link Page} of {@link App} which matches the criteria from the database.
      * @param criteria The object which holds all the filters, which the entities should match.
      * @param page The page, which should be returned.
      * @return the matching entities.
@@ -63,7 +63,7 @@ public class AppQueryService extends QueryService<App> {
     }
 
     /**
-     * Return the number of matching entities in the database
+     * Return the number of matching entities in the database.
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the number of matching entities.
      */
@@ -75,9 +75,11 @@ public class AppQueryService extends QueryService<App> {
     }
 
     /**
-     * Function to convert AppCriteria to a {@link Specification}
+     * Function to convert {@link AppCriteria} to a {@link Specification}
+     * @param criteria The object which holds all the filters, which the entities should match.
+     * @return the matching {@link Specification} of the entity.
      */
-    private Specification<App> createSpecification(AppCriteria criteria) {
+    protected Specification<App> createSpecification(AppCriteria criteria) {
         Specification<App> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {

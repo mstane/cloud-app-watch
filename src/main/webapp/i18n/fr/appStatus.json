@@ -1,10 +1,10 @@
 {
-    "cloudappwatchApp": {
-        "AppStatus": {
-            "null": "",
-            "UP": "UP",
-            "DOWN": "DOWN",
-            "FAILURE": "FAILURE"
-        }
+  "cloudappwatchApp": {
+    "AppStatus": {
+      "null": "",
+      "UP": "UP",
+      "DOWN": "DOWN",
+      "FAILURE": "FAILURE"
     }
+  }
 }

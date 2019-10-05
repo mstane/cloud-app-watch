@@ -2,6 +2,7 @@ package io.github.ms.cloudappwatch.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import io.github.jhipster.service.Criteria;
 import io.github.ms.cloudappwatch.domain.enumeration.ServiceStatus;
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.DoubleFilter;
@@ -13,18 +14,32 @@ import io.github.jhipster.service.filter.StringFilter;
 import io.github.jhipster.service.filter.ZonedDateTimeFilter;
 
 /**
- * Criteria class for the Server entity. This class is used in ServerResource to
- * receive all the possible filtering options from the Http GET request parameters.
- * For example the following could be a valid requests:
- * <code> /servers?id.greaterThan=5&amp;attr1.contains=something&amp;attr2.specified=false</code>
+ * Criteria class for the {@link io.github.ms.cloudappwatch.domain.Server} entity. This class is used
+ * in {@link io.github.ms.cloudappwatch.web.rest.ServerResource} to receive all the possible filtering options from
+ * the Http GET request parameters.
+ * For example the following could be a valid request:
+ * {@code /servers?id.greaterThan=5&attr1.contains=something&attr2.specified=false}
  * As Spring is unable to properly convert the types, unless specific {@link Filter} class are used, we need to use
  * fix type specific filters.
  */
-public class ServerCriteria implements Serializable {
+public class ServerCriteria implements Serializable, Criteria {
     /**
      * Class for filtering ServiceStatus
      */
     public static class ServiceStatusFilter extends Filter<ServiceStatus> {
+
+        public ServiceStatusFilter() {
+        }
+
+        public ServiceStatusFilter(ServiceStatusFilter filter) {
+            super(filter);
+        }
+
+        @Override
+        public ServiceStatusFilter copy() {
+            return new ServiceStatusFilter(this);
+        }
+
     }
 
     private static final long serialVersionUID = 1L;
@@ -38,6 +53,22 @@ public class ServerCriteria implements Serializable {
     private ZonedDateTimeFilter lastCheck;
 
     private LongFilter adminId;
+
+    public ServerCriteria(){
+    }
+
+    public ServerCriteria(ServerCriteria other){
+        this.id = other.id == null ? null : other.id.copy();
+        this.hostName = other.hostName == null ? null : other.hostName.copy();
+        this.status = other.status == null ? null : other.status.copy();
+        this.lastCheck = other.lastCheck == null ? null : other.lastCheck.copy();
+        this.adminId = other.adminId == null ? null : other.adminId.copy();
+    }
+
+    @Override
+    public ServerCriteria copy() {
+        return new ServerCriteria(this);
+    }
 
     public LongFilter getId() {
         return id;

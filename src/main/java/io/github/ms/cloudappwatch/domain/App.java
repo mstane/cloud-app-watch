@@ -1,14 +1,12 @@
 package io.github.ms.cloudappwatch.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import io.github.ms.cloudappwatch.domain.enumeration.AppStatus;
 
@@ -21,13 +19,14 @@ import io.github.ms.cloudappwatch.domain.enumeration.AppStatus;
 public class App implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
     @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "command_line")
     private String commandLine;
 
@@ -109,19 +108,15 @@ public class App implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof App)) {
             return false;
         }
-        App app = (App) o;
-        if (app.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), app.getId());
+        return id != null && id.equals(((App) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

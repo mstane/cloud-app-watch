@@ -1,13 +1,13 @@
 {
-    "cloudappwatchApp": {
-        "ServiceStatus": {
-            "null": "",
-            "COMPLETE": "COMPLETE",
-            "PARTIAL": "PARTIAL",
-            "STALE": "STALE",
-            "FAILURE": "FAILURE",
-            "DOWN": "DOWN",
-            "ERROR": "ERROR"
-        }
+  "cloudappwatchApp": {
+    "ServiceStatus": {
+      "null": "",
+      "COMPLETE": "COMPLETE",
+      "PARTIAL": "PARTIAL",
+      "STALE": "STALE",
+      "FAILURE": "FAILURE",
+      "DOWN": "DOWN",
+      "ERROR": "ERROR"
     }
+  }
 }
