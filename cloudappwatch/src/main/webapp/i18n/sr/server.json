@@ -1,0 +1,25 @@
+{
+  "cloudappwatchApp": {
+    "server": {
+      "home": {
+        "title": "Servers",
+        "createLabel": "Kreiraj novi Server",
+        "createOrEditLabel": "Kreirajte ili izmenite Server",
+        "notFound": "No Servers found"
+      },
+      "created": "Kreiran je novi Server pod nazivom {{ param }}",
+      "updated": "Server pod nazivom {{ param }} je ažuriran",
+      "deleted": "Server pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Server pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Server"
+      },
+      "hostName": "Host Name",
+      "status": "Status",
+      "lastCheck": "Last Check",
+      "admin": "Admin"
+    }
+  }
+}

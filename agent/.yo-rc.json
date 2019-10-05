@@ -1,0 +1,40 @@
+{
+  "generator-jhipster": {
+    "databaseType": "no",
+    "devDatabaseType": "no",
+    "enableHibernateCache": false,
+    "enableSwaggerCodegen": false,
+    "enableTranslation": true,
+    "jhiPrefix": "jhi",
+    "languages": [
+      "en",
+      "fr"
+    ],
+    "messageBroker": "kafka",
+    "nativeLanguage": "en",
+    "packageName": "io.github.ms.cloudappwatch",
+    "packageFolder": "io/github/ms/cloudappwatch",
+    "prodDatabaseType": "no",
+    "searchEngine": false,
+    "serviceDiscoveryType": "eureka",
+    "skipClient": true,
+    "testFrameworks": [],
+    "websocket": false,
+    "baseName": "agent",
+    "applicationType": "microservice",
+    "authenticationType": "jwt",
+    "buildTool": "maven",
+    "serverPort": "8083",
+    "skipUserManagement": true,
+    "jhipsterVersion": "6.3.1",
+    "clientPackageManager": "npm",
+    "cacheProvider": "hazelcast",
+    "jwtSecretKey": "MzUyYTdhNjMyMzUyYjg4NzY5MTVkMTg3OWY2NTNhM2FjMTQxNDlmZWM0NjFjNjdkZmU4NGE0ODAxZWI2YzQ0MGQ1NTdjMGQyNjgwNWI3ZTE3ZDAwZmNkODhkMjhjN2FhOTI2OWM5NDY1ZjMxMzQ3ZDUyNmU5OWNiZGM4ZDVhMGY=",
+    "embeddableLaunchScript": false,
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "blueprints": []
+  },
+  "entities": []
+}

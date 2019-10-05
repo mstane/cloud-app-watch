@@ -1,0 +1,11 @@
+id;host_name;status;last_check
+1;mobile Fish;ERROR;2019-10-05T10:52:55
+2;FTP Savings Account;STALE;2019-10-05T12:15:26
+3;Officer;DOWN;2019-10-05T01:54:33
+4;intangible;FAILURE;2019-10-05T06:41:22
+5;Licensed Savings Account;PARTIAL;2019-10-05T11:09:40
+6;Credit Card Account Table Small Frozen Sausages;COMPLETE;2019-10-05T06:44:04
+7;Monitored Bahamian Dollar Investment Account;ERROR;2019-10-04T20:22:32
+8;hardware Costa Rica Mayotte;FAILURE;2019-10-04T16:03:40
+9;Views e-enable Communications;DOWN;2019-10-05T11:11:25
+10;software scale interactive;DOWN;2019-10-05T05:39:07
