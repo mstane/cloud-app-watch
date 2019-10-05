@@ -53,10 +53,13 @@ spring:
                     destination: topic-jhipster
                 heartBeatChannel:
                     destination: heart-beat-topic
-                processEventChannel:
-                    destination: process-event-topic
-                processFullListChannel:
-                    destination: process-full-list-topic
+                    content-type: application/json
+                appEventChannel:
+                    destination: app-event-topic
+                    content-type: application/json
+                appFullListChannel:
+                    destination: app-full-list-topic
+                    content-type: application/json
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:h2:file:./target/h2db/db/cloudappwatch;DB_CLOSE_DELAY=-1
