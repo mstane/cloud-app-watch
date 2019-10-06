@@ -29,18 +29,20 @@
     "ngx-cookie": "4.0.2",
     "ngx-infinite-scroll": "8.0.0",
     "ngx-webstorage": "4.0.1",
-    "ora": "^4.0.2",
+    "ora": "^3.4.0",
     "progress": "^2.0.3",
     "rxjs": "6.5.2",
     "swagger-ui": "2.2.10",
     "tslib": "1.10.0",
     "uuid": "^3.3.3",
-    "zone.js": "0.10.2"
+    "zone": "^0.3.4",
+    "zone.js": "^0.9.1"
   },
   "devDependencies": {
     "@angular/cli": "8.3.1",
     "@angular/compiler-cli": "8.2.4",
     "@ngtools/webpack": "8.3.1",
+    "@openapitools/openapi-generator-cli": "0.0.14-4.0.2",
     "@types/jest": "24.0.18",
     "@types/node": "10.12.27",
     "@typescript-eslint/eslint-plugin": "2.0.0",
@@ -89,8 +91,7 @@
     "ts-loader": "6.0.4",
     "tslint": "5.19.0",
     "typescript": "3.4.5",
-    "@openapitools/openapi-generator-cli": "0.0.14-4.0.2",
-    "webpack": "4.39.3",
+    "webpack": "^4.36.1",
     "webpack-cli": "3.3.7",
     "webpack-dev-server": "3.8.0",
     "webpack-merge": "4.2.2",
@@ -122,8 +123,8 @@
     "webpack:prod:main": "npm run webpack -- --config webpack/webpack.prod.js --profile",
     "webpack:prod": "npm run cleanup && npm run webpack:prod:main && npm run clean-www",
     "webpack:test": "npm run test",
-    "webpack-dev-server": "node --max_old_space_size=4096 node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-    "webpack": "node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js"
+    "webpack-dev-server": "node --max_old_space_size=8192 node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "webpack": "node --max_old_space_size=8192 node_modules/webpack/bin/webpack.js"
   },
   "jestSonar": {
     "reportPath": "target/test-results/jest",

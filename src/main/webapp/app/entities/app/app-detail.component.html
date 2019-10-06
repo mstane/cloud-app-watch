@@ -20,7 +20,7 @@
                 <dt><span jhiTranslate="cloudappwatchApp.app.server">Server</span></dt>
                 <dd>
                     <div *ngIf="app.server">
-                        <a [routerLink]="['/server', app.server?.id, 'view']">{{app.server?.name}}</a>
+                        <a [routerLink]="['/server', app.server?.id, 'view']">{{app.server?.hostName}}</a>
                     </div>
                 </dd>
             </dl>

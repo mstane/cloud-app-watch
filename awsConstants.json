@@ -1,0 +1,34 @@
+{
+  "apps": [
+    {
+      "baseName": "cloudappwatch",
+      "performance": "high",
+      "fargate": { "CPU": "4096", "memory": "16GB", "taskCount": 1 },
+      "database": { "size": "db.r4.large", "supportedEngines": ["mariadb", "mysql", "postgresql"], "instances": 1 },
+      "scaling": "low",
+      "dbType": "postgresql",
+      "auroraEngine": "aurora-postgresql",
+      "auroraFamily": "aurora-postgresql9.6",
+      "auroraClusterParameterGroupName": "default.aurora-postgresql9.6",
+      "auroraDbParam": "check_function_bodies: 0"
+    }
+  ],
+  "vpc": {
+    "id": "vpc-0f9c7cc55e24f222d",
+    "cidr": "172.16.0.0/16",
+    "elbSubnets": ["subnet-0acac68726bb8474a", "subnet-008d165a8bc7fe46f"],
+    "appSubnets": ["subnet-0acac68726bb8474a", "subnet-008d165a8bc7fe46f"],
+    "appSubnetsLaunchWithPublicIP": false
+  },
+  "region": "eu-west-1",
+  "cloudFormationName": "caw-stack",
+  "s3BucketName": "caw-stack-1570354751272",
+  "s3bucketLocation": "/caw-stack-1570354751272",
+  "s3BaseTemplate": {
+    "ETag": "\"e51033f1ec115dad0d19721037e20762\"",
+    "Location": "https://caw-stack-1570354751272.s3.amazonaws.com/base.template.yml",
+    "key": "base.template.yml",
+    "Key": "base.template.yml",
+    "Bucket": "caw-stack-1570354751272"
+  }
+}
